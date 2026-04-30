@@ -128,7 +128,10 @@ jobs:
         run: sudo xcode-select --switch /Applications/Xcode_16.4.app
       - run: brew install sqlcipher
       - uses: moonrepo/setup-rust@v1
-      - run: ./scripts/add-firebase-messaging.sh
+      - name: Add Firebase Messaging
+        run: |
+          echo '${{ secrets.GOOGLE_SERVICE_INFO_PLIST }}' | base64 -d > ios/Runner/GoogleService-Info.plist
+          ./scripts/add-firebase-messaging.sh
       - run: flutter pub get
       - run: flutter build ios --no-codesign
 

@@ -54,7 +54,7 @@ lib/l10n/*.dart
 ios/Flutter/.last_build_id
 ios/Podfile.lock
 ios/Runner.ipa
-ios/Runner/GoogleServices-Info.plist
+ios/Runner/GoogleService-Info.plist
 
 /windows/out
 /winuwp/out

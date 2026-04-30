@@ -15,6 +15,7 @@ env:
 
 jobs:
   build_web:
+    if: false # TODO: enable after PAGES_DEPLOY_TOKEN is configured
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -75,6 +76,7 @@ jobs:
           cname: fluffychat.im
 
   build_apk:
+    if: false # TODO: enable after PAGES_DEPLOY_TOKEN is configured
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -107,6 +109,7 @@ jobs:
           asset_content_type: application/vnd.android.package-archive
 
   build_linux:
+    if: false # TODO: enable after PAGES_DEPLOY_TOKEN is configured
     strategy:
       matrix:
         arch: [ x64, arm64 ]
@@ -136,6 +139,7 @@ jobs:
           asset_content_type: application/gzip
 
   deploy_playstore:
+    if: false # TODO: enable after FDROID_KEY and PLAYSTORE_DEPLOY_KEY are configured
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -184,6 +188,7 @@ jobs:
           cd ..
 
   deploy_docker:
+    if: false # TODO: enable after PAGES_DEPLOY_TOKEN is configured
     runs-on: ubuntu-latest
     permissions:
       contents: read
