@@ -67,6 +67,7 @@ abstract class AppConfig {
   static const Color telegramAccentLight = Color(0xFF4EA4F6);
   static const Color telegramUnreadBadge = Color(0xFF4DCA57);
   static const Color telegramLinkColor = Color(0xFF3B8AE0);
+  static const Color telegramLinkColorDark = Color(0xFF6AB2F2);
   static const Color telegramCheckReadColor = Color(0xFF4FAE4E);
 
   // Telegram-style Colors - Dark Mode

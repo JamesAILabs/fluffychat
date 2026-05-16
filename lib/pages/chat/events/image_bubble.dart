@@ -59,10 +59,8 @@ class ImageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     var borderRadius =
-        this.borderRadius ?? BorderRadius.circular(AppConfig.borderRadius);
+        this.borderRadius ?? BorderRadius.circular(AppConfig.telegramBubbleRadius);
 
     final fileDescription = event.fileDescription;
     final textColor = this.textColor;
@@ -83,11 +81,7 @@ class ImageBubble extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           shape: RoundedRectangleBorder(
             borderRadius: borderRadius,
-            side: BorderSide(
-              color: event.messageType == MessageTypes.Sticker
-                  ? Colors.transparent
-                  : theme.dividerColor,
-            ),
+            side: BorderSide.none,
           ),
           child: InkWell(
             onTap: onTap,

@@ -186,6 +186,11 @@ extension BubbleColorTheme on ThemeData {
   // Read check mark color
   Color get checkReadColor => AppConfig.telegramCheckReadColor;
 
+  // Theme-aware link color
+  Color get telegramLinkColor => brightness == Brightness.light
+      ? AppConfig.telegramLinkColor
+      : AppConfig.telegramLinkColorDark;
+
   // Keep secondaryBubbleColor for backward compatibility
   Color get secondaryBubbleColor => receivedBubbleColor;
 }

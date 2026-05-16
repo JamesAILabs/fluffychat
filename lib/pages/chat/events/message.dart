@@ -130,7 +130,7 @@ class Message extends StatelessWidget {
         ? theme.onBubbleColor
         : theme.onReceivedBubbleColor;
 
-    final linkColor = AppConfig.telegramLinkColor;
+    final linkColor = theme.telegramLinkColor;
 
     final rowMainAxisAlignment = ownMessage
         ? MainAxisAlignment.end
@@ -157,6 +157,9 @@ class Message extends StatelessWidget {
         }.contains(event.messageType) &&
         event.fileDescription == null &&
         !event.redacted);
+
+    // Show a Telegram-style tail on the first message in a sender group
+    final showTail = !previousEventSameSender && !noBubble;
 
     if (ownMessage) {
       color = displayEvent.status.isError
@@ -476,7 +479,24 @@ class Message extends StatelessWidget {
                                             event.type == EventTypes.Encrypted
                                         ? 0.5
                                         : 1,
-                                    child: Container(
+                                    child: Stack(
+                                      clipBehavior: Clip.none,
+                                      children: [
+                                        // Bubble tail for first message in group
+                                        if (showTail)
+                                          Positioned(
+                                            bottom: 0,
+                                            left: ownMessage ? null : -6,
+                                            right: ownMessage ? -6 : null,
+                                            child: CustomPaint(
+                                              size: const Size(10, 12),
+                                              painter: _BubbleTailPainter(
+                                                color: color,
+                                                isOwn: ownMessage,
+                                              ),
+                                            ),
+                                          ),
+                                        Container(
                                       decoration: BoxDecoration(
                                         color: noBubble
                                             ? Colors.transparent
@@ -486,7 +506,7 @@ class Message extends StatelessWidget {
                                       clipBehavior: Clip.antiAlias,
                                       child: BubbleBackground(
                                         colors: colors,
-                                        ignore: true,
+                                        ignore: !wallpaperMode,
                                         scrollController: scrollController,
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -570,6 +590,40 @@ class Message extends StatelessWidget {
                                                       ),
                                                     );
                                                   },
+                                                ),
+                                              // Forwarded message header
+                                              if (displayEvent.content['m.forwarded'] == true)
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                    left: 16,
+                                                    right: 16,
+                                                    top: 8,
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.shortcut,
+                                                        size: 14,
+                                                        color: theme.telegramAccentColor,
+                                                      ),
+                                                      const SizedBox(width: 4),
+                                                      Flexible(
+                                                        child: Text(
+                                                          displayEvent.content['forwarded_from'] is String
+                                                              ? 'Forwarded from: ${displayEvent.content['forwarded_from']}'
+                                                              : 'Forwarded message',
+                                                          style: TextStyle(
+                                                            fontStyle: FontStyle.italic,
+                                                            fontSize: 12,
+                                                            color: theme.telegramAccentColor,
+                                                          ),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               MessageContent(
                                                 displayEvent,
@@ -679,6 +733,8 @@ class Message extends StatelessWidget {
                                           ),
                                         ),
                                       ),
+                                    ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -1038,6 +1094,48 @@ class BubblePainter extends CustomPainter {
     _scrollable = scrollable;
     return scrollable.position != oldScrollable?.position;
   }
+}
+
+/// Paints a Telegram-style pointed tail on a message bubble.
+/// The tail is a small triangular shape at the bottom-left (received)
+/// or bottom-right (sent) of the first message in a sender group.
+class _BubbleTailPainter extends CustomPainter {
+  final Color color;
+  final bool isOwn;
+
+  _BubbleTailPainter({required this.color, required this.isOwn});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    final path = Path();
+    if (isOwn) {
+      // Tail pointing to the right
+      path.moveTo(0, 0);
+      path.quadraticBezierTo(size.width * 0.5, 0, size.width, size.height);
+      path.lineTo(0, size.height);
+      path.close();
+    } else {
+      // Tail pointing to the left
+      path.moveTo(size.width, 0);
+      path.quadraticBezierTo(
+        size.width * 0.5,
+        0,
+        0,
+        size.height,
+      );
+      path.lineTo(size.width, size.height);
+      path.close();
+    }
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(_BubbleTailPainter oldDelegate) =>
+      color != oldDelegate.color || isOwn != oldDelegate.isOwn;
 }
 
 class _AnimateIn extends StatefulWidget {

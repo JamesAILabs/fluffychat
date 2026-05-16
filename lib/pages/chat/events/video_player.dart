@@ -59,8 +59,8 @@ class EventVideoPlayer extends StatelessWidget {
       spacing: 8,
       children: [
         Material(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(AppConfig.telegramBubbleRadius),
           child: InkWell(
             onTap: () => supportsVideoPlayer
                 ? showDialog(
@@ -72,7 +72,7 @@ class EventVideoPlayer extends StatelessWidget {
                     ),
                   )
                 : event.saveFile(context),
-            borderRadius: BorderRadius.circular(AppConfig.borderRadius),
+            borderRadius: BorderRadius.circular(AppConfig.telegramBubbleRadius),
             child: SizedBox(
               width: width,
               height: height,

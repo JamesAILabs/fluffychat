@@ -447,11 +447,11 @@ class AudioPlayerState extends State<AudioPlayerWidget> {
                           secondChild: Material(
                             color: widget.color.withAlpha(64),
                             borderRadius: BorderRadius.circular(
-                              AppConfig.borderRadius,
+                              AppConfig.telegramBubbleRadius,
                             ),
                             child: InkWell(
                               borderRadius: BorderRadius.circular(
-                                AppConfig.borderRadius,
+                                AppConfig.telegramBubbleRadius,
                               ),
                               onTap: _toggleSpeed,
                               child: SizedBox(
