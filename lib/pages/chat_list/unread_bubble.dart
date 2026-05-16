@@ -1,3 +1,4 @@
+import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/config/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:matrix/matrix.dart';
@@ -30,8 +31,10 @@ class UnreadBubble extends StatelessWidget {
         color: room.highlightCount > 0
             ? theme.colorScheme.error
             : hasNotifications || room.markedUnread
-            ? theme.colorScheme.primary
-            : theme.colorScheme.primaryContainer,
+            ? room.pushRuleState != PushRuleState.notify
+                ? Colors.grey
+                : AppConfig.telegramUnreadBadge
+            : AppConfig.telegramUnreadBadge.withAlpha(180),
         borderRadius: BorderRadius.circular(unreadBubbleSize),
       ),
       child: hasNotifications || room.markedUnread
@@ -40,9 +43,7 @@ class UnreadBubble extends StatelessWidget {
               style: TextStyle(
                 color: room.highlightCount > 0
                     ? theme.colorScheme.onError
-                    : hasNotifications
-                    ? theme.colorScheme.onPrimary
-                    : theme.colorScheme.onPrimaryContainer,
+                    : Colors.white,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),

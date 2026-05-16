@@ -101,7 +101,7 @@ class Message extends StatelessWidget {
     final ownMessage = event.senderId == client.userID;
     final alignment = ownMessage ? Alignment.topRight : Alignment.topLeft;
 
-    var color = theme.colorScheme.surfaceContainerHigh;
+    var color = theme.receivedBubbleColor;
     final displayTime =
         event.type == EventTypes.RoomCreate ||
         nextEvent == null ||
@@ -128,21 +128,17 @@ class Message extends StatelessWidget {
 
     final textColor = ownMessage
         ? theme.onBubbleColor
-        : theme.colorScheme.onSurface;
+        : theme.onReceivedBubbleColor;
 
-    final linkColor = ownMessage
-        ? theme.brightness == Brightness.light
-              ? theme.colorScheme.primaryFixed
-              : theme.colorScheme.onTertiaryContainer
-        : theme.colorScheme.primary;
+    final linkColor = AppConfig.telegramLinkColor;
 
     final rowMainAxisAlignment = ownMessage
         ? MainAxisAlignment.end
         : MainAxisAlignment.start;
 
     final displayEvent = event.getDisplayEvent(timeline);
-    const hardCorner = Radius.circular(4);
-    const roundedCorner = Radius.circular(AppConfig.borderRadius);
+    const hardCorner = Radius.circular(6);
+    const roundedCorner = Radius.circular(AppConfig.telegramBubbleRadius);
     final borderRadius = BorderRadius.only(
       topLeft: !ownMessage && nextEventSameSender ? hardCorner : roundedCorner,
       topRight: ownMessage && nextEventSameSender ? hardCorner : roundedCorner,
@@ -210,9 +206,22 @@ class Message extends StatelessWidget {
       child: Center(
         child: Swipeable(
           key: ValueKey(event.eventId),
-          background: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.0),
-            child: Center(child: Icon(Icons.check_outlined)),
+          background: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surfaceContainerHigh,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.reply,
+                  color: theme.colorScheme.onSurface,
+                  size: 20,
+                ),
+              ),
+            ),
           ),
           direction: AppSettings.swipeRightToLeftToReply.value
               ? SwipeDirection.endToStart
@@ -225,14 +234,14 @@ class Message extends StatelessWidget {
             padding: EdgeInsets.only(
               left: 8.0,
               right: 8.0,
-              top: nextEventSameSender ? 1.0 : 4.0,
-              bottom: previousEventSameSender ? 1.0 : 4.0,
+              top: nextEventSameSender ? 2.0 : 6.0,
+              bottom: previousEventSameSender ? 2.0 : 6.0,
             ),
             child: Column(
               mainAxisSize: .min,
               crossAxisAlignment: ownMessage ? .end : .start,
               children: <Widget>[
-                if (displayTime || selected)
+                if (displayTime)
                   Padding(
                     padding: displayTime
                         ? const EdgeInsets.symmetric(vertical: 8.0)
@@ -477,10 +486,7 @@ class Message extends StatelessWidget {
                                       clipBehavior: Clip.antiAlias,
                                       child: BubbleBackground(
                                         colors: colors,
-                                        ignore:
-                                            noBubble ||
-                                            !ownMessage ||
-                                            MediaQuery.highContrastOf(context),
+                                        ignore: true,
                                         scrollController: scrollController,
                                         child: Container(
                                           decoration: BoxDecoration(
@@ -575,6 +581,63 @@ class Message extends StatelessWidget {
                                                 selected: selected,
                                                 bigEmojis: bigEmojis,
                                               ),
+                                              // Telegram-style inline timestamp + status
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                  right: 8,
+                                                  bottom: 4,
+                                                  left: 8,
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    const Spacer(),
+                                                    Text(
+                                                      event.originServerTs
+                                                          .localizedTimeShort(
+                                                            context,
+                                                          ),
+                                                      style: TextStyle(
+                                                        fontSize: 11,
+                                                        color: ownMessage
+                                                            ? theme.sentTimeColor
+                                                            : theme
+                                                                  .receivedTimeColor,
+                                                      ),
+                                                    ),
+                                                    if (ownMessage) ...[
+                                                      const SizedBox(width: 3),
+                                                      Icon(
+                                                        event.status ==
+                                                                EventStatus.error
+                                                            ? Icons.error_outline
+                                                            : event.status ==
+                                                                    EventStatus
+                                                                        .sending
+                                                                ? Icons
+                                                                      .access_time
+                                                                : event.status ==
+                                                                        EventStatus
+                                                                            .sent
+                                                                    ? Icons.check
+                                                                    : Icons
+                                                                          .done_all,
+                                                        size: 14,
+                                                        color: event.receipts.any(
+                                                          (r) =>
+                                                              r.user.id !=
+                                                              event.room.client
+                                                                  .userID,
+                                                        )
+                                                            ? theme.checkReadColor
+                                                            : theme.sentTimeColor,
+                                                      ),
+                                                    ],
+                                                  ],
+                                                ),
+                                              ),
                                               if (event.hasAggregatedEvents(
                                                 timeline,
                                                 RelationshipTypes.edit,
@@ -631,14 +694,12 @@ class Message extends StatelessWidget {
                                       ? Padding(
                                           padding: const EdgeInsets.all(4.0),
                                           child: Material(
-                                            elevation: 4,
+                                            elevation: 6,
                                             borderRadius: BorderRadius.circular(
-                                              AppConfig.borderRadius,
+                                              24,
                                             ),
-                                            shadowColor: theme
-                                                .colorScheme
-                                                .surface
-                                                .withAlpha(128),
+                                            color: theme.colorScheme.surface,
+                                            shadowColor: Colors.black26,
                                             child: SingleChildScrollView(
                                               scrollDirection: Axis.horizontal,
                                               child: Row(

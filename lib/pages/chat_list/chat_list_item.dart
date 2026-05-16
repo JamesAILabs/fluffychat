@@ -60,16 +60,15 @@ class ChatListItem extends StatelessWidget {
         room.getState(EventTypes.RoomMember, lastEvent.senderId) == null;
     final space = this.space;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-      child: Material(
-        borderRadius: BorderRadius.circular(AppConfig.borderRadius),
-        clipBehavior: Clip.hardEdge,
-        color: backgroundColor,
-        child: FutureBuilder(
+    return Material(
+      color: backgroundColor ?? Colors.transparent,
+      child: FutureBuilder(
           future: room.name.isEmpty ? room.loadHeroUsers() : null,
           builder: (context, _) => HoverBuilder(
-            builder: (context, listTileHovered) => ListTile(
+            builder: (context, listTileHovered) => Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
               visualDensity: const VisualDensity(vertical: -0.5),
               contentPadding: const EdgeInsets.symmetric(horizontal: 8),
               onLongPress: () => onLongPress?.call(context),
@@ -183,6 +182,12 @@ class ChatListItem extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
+                      style: TextStyle(
+                        fontWeight: room.isUnread
+                            ? FontWeight.bold
+                            : FontWeight.w500,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                   if (isMuted)
@@ -391,6 +396,9 @@ class ChatListItem extends StatelessWidget {
                       icon: const Icon(Icons.delete_outlined),
                       onPressed: onForget,
                     ),
+            ),
+                const Divider(height: 1, indent: 72, endIndent: 0),
+              ],
             ),
           ),
         ),

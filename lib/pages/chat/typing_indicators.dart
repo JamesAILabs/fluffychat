@@ -80,9 +80,9 @@ class TypingIndicators extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Material(
-                  color: theme.colorScheme.surfaceContainerHigh,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(AppConfig.borderRadius),
+                  color: theme.receivedBubbleColor,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(AppConfig.telegramBubbleRadius),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),

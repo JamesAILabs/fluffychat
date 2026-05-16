@@ -138,8 +138,8 @@ class ChatInputRow extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     child: PopupMenuButton<AddPopupMenuActions>(
                       useRootNavigator: true,
-                      icon: const Icon(Icons.add_circle_outline),
-                      iconColor: theme.colorScheme.onPrimaryContainer,
+                      icon: const Icon(Icons.attach_file),
+                      iconColor: theme.colorScheme.onSurfaceVariant,
                       onSelected: controller.onAddPopupMenuButtonSelected,
                       itemBuilder: (BuildContext context) => [
                         if (PlatformInfos.isMobile)
@@ -215,38 +215,7 @@ class ChatInputRow extends StatelessWidget {
                             contentPadding: const EdgeInsets.all(0),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  if (PlatformInfos.isMobile)
-                    AnimatedContainer(
-                      duration: FluffyThemes.animationDuration,
-                      curve: FluffyThemes.animationCurve,
-                      width: textMessageOnly ? 0 : 48,
-                      height: height,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(),
-                      clipBehavior: Clip.hardEdge,
-                      child: PopupMenuButton(
-                        useRootNavigator: true,
-                        icon: const Icon(Icons.camera_alt_outlined),
-                        onSelected: controller.onAddPopupMenuButtonSelected,
-                        iconColor: theme.colorScheme.onPrimaryContainer,
-                        itemBuilder: (context) => [
-                          PopupMenuItem(
-                            value: AddPopupMenuActions.videoCamera,
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor:
-                                    theme.colorScheme.onPrimaryContainer,
-                                foregroundColor:
-                                    theme.colorScheme.primaryContainer,
-                                child: const Icon(Icons.videocam_outlined),
-                              ),
-                              title: Text(L10n.of(context).recordAVideo),
-                              contentPadding: const EdgeInsets.all(0),
-                            ),
-                          ),
+                        if (PlatformInfos.isMobile) ...[
                           PopupMenuItem(
                             value: AddPopupMenuActions.photoCamera,
                             child: ListTile(
@@ -261,20 +230,36 @@ class ChatInputRow extends StatelessWidget {
                               contentPadding: const EdgeInsets.all(0),
                             ),
                           ),
+                          PopupMenuItem(
+                            value: AddPopupMenuActions.videoCamera,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    theme.colorScheme.onPrimaryContainer,
+                                foregroundColor:
+                                    theme.colorScheme.primaryContainer,
+                                child: const Icon(Icons.videocam_outlined),
+                              ),
+                              title: Text(L10n.of(context).recordAVideo),
+                              contentPadding: const EdgeInsets.all(0),
+                            ),
+                          ),
                         ],
-                      ),
+                      ],
                     ),
+                  ),
+                  // Camera options merged into attachment menu above
                   Container(
                     height: height,
                     width: 48,
                     alignment: Alignment.center,
                     child: IconButton(
                       tooltip: L10n.of(context).emojis,
-                      color: theme.colorScheme.onPrimaryContainer,
+                      color: theme.colorScheme.onSurfaceVariant,
                       icon: Icon(
                         controller.showEmojiPicker
                             ? Icons.keyboard
-                            : Icons.add_reaction_outlined,
+                            : Icons.emoji_emotions_outlined,
                         key: ValueKey(controller.showEmojiPicker),
                       ),
                       onPressed: controller.emojiPickerAction,
@@ -372,8 +357,7 @@ class ChatInputRow extends StatelessWidget {
                               onLongPress: () => recordingViewModel
                                   .startRecording(controller.room),
                               style: IconButton.styleFrom(
-                                backgroundColor: theme.bubbleColor,
-                                foregroundColor: theme.onBubbleColor,
+                                foregroundColor: theme.colorScheme.onSurfaceVariant,
                               ),
                               icon: Icon(
                                 hovered ? Icons.mic : Icons.mic_none_outlined,
@@ -385,10 +369,10 @@ class ChatInputRow extends StatelessWidget {
                             tooltip: L10n.of(context).send,
                             onPressed: controller.send,
                             style: IconButton.styleFrom(
-                              backgroundColor: theme.bubbleColor,
-                              foregroundColor: theme.onBubbleColor,
+                              backgroundColor: theme.telegramAccentColor,
+                              foregroundColor: Colors.white,
                             ),
-                            icon: const Icon(Icons.send_outlined),
+                            icon: const Icon(Icons.arrow_upward),
                           ),
                   ),
                 ],

@@ -151,21 +151,21 @@ class _Reaction extends StatelessWidget {
     return InkWell(
       onTap: () => onTap != null ? onTap!() : null,
       onLongPress: () => onLongPress != null ? onLongPress!() : null,
-      borderRadius: BorderRadius.circular(AppConfig.borderRadius / 2),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         decoration: BoxDecoration(
           color: reacted == true
               ? theme.colorScheme.primaryContainer
-              : theme.colorScheme.surfaceContainerHigh,
+              : theme.colorScheme.surface,
           border: Border.all(
             color: reacted == true
                 ? theme.colorScheme.primary
-                : theme.colorScheme.surfaceContainerHigh,
+                : theme.colorScheme.outlineVariant,
             width: 1,
           ),
-          borderRadius: BorderRadius.circular(AppConfig.borderRadius / 2),
+          borderRadius: BorderRadius.circular(12),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         child: content,
       ),
     );

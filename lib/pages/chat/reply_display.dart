@@ -22,7 +22,7 @@ class ReplyDisplay extends StatelessWidget {
           ? 56
           : 0,
       clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(color: theme.colorScheme.onInverseSurface),
+      decoration: BoxDecoration(color: theme.colorScheme.surfaceContainerLow),
       child: Row(
         children: <Widget>[
           IconButton(

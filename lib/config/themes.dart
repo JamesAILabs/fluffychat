@@ -143,17 +143,49 @@ extension on Brightness {
 }
 
 extension BubbleColorTheme on ThemeData {
+  // Telegram-style sent bubble color
   Color get bubbleColor => brightness == Brightness.light
-      ? colorScheme.primary
-      : colorScheme.primaryContainer;
+      ? AppConfig.telegramSentBubbleLight
+      : AppConfig.telegramSentBubbleDark;
 
+  // Text color on sent bubbles
   Color get onBubbleColor => brightness == Brightness.light
-      ? colorScheme.onPrimary
-      : colorScheme.onPrimaryContainer;
+      ? AppConfig.telegramSentTextLight
+      : AppConfig.telegramSentTextDark;
 
-  Color get secondaryBubbleColor => HSLColor.fromColor(
-    brightness == Brightness.light
-        ? colorScheme.tertiary
-        : colorScheme.tertiaryContainer,
-  ).withSaturation(0.5).toColor();
+  // Telegram-style received bubble color
+  Color get receivedBubbleColor => brightness == Brightness.light
+      ? AppConfig.telegramReceivedBubbleLight
+      : AppConfig.telegramReceivedBubbleDark;
+
+  // Text color on received bubbles
+  Color get onReceivedBubbleColor => brightness == Brightness.light
+      ? AppConfig.telegramReceivedTextLight
+      : AppConfig.telegramReceivedTextDark;
+
+  // Timestamp color inside sent bubbles
+  Color get sentTimeColor => brightness == Brightness.light
+      ? AppConfig.telegramSentTimeLight
+      : AppConfig.telegramSentTimeDark;
+
+  // Timestamp color inside received bubbles
+  Color get receivedTimeColor => brightness == Brightness.light
+      ? AppConfig.telegramReceivedTimeLight
+      : AppConfig.telegramReceivedTimeDark;
+
+  // Chat background color
+  Color get chatBackgroundColor => brightness == Brightness.light
+      ? AppConfig.telegramChatBgLight
+      : AppConfig.telegramChatBgDark;
+
+  // Accent color (links, buttons)
+  Color get telegramAccentColor => brightness == Brightness.light
+      ? AppConfig.telegramAccentLight
+      : AppConfig.telegramAccentDark;
+
+  // Read check mark color
+  Color get checkReadColor => AppConfig.telegramCheckReadColor;
+
+  // Keep secondaryBubbleColor for backward compatibility
+  Color get secondaryBubbleColor => receivedBubbleColor;
 }

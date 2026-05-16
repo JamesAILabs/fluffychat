@@ -2,9 +2,9 @@ import 'dart:ui';
 
 abstract class AppConfig {
   // Const and final configuration values (immutable)
-  static const Color primaryColor = Color(0xFF5625BA);
-  static const Color primaryColorLight = Color(0xFFCCBDEA);
-  static const Color secondaryColor = Color(0xFF41a2bc);
+  static const Color primaryColor = Color(0xFF4EA4F6);
+  static const Color primaryColorLight = Color(0xFFB0D4F1);
+  static const Color secondaryColor = Color(0xFF4DCA57);
 
   static const Color chatColor = primaryColor;
   static const double messageFontSize = 16.0;
@@ -55,4 +55,34 @@ abstract class AppConfig {
 
   static const String mainIsolatePortName = 'main_isolate';
   static const String pushIsolatePortName = 'push_isolate';
+
+  // Telegram-style Colors - Light Mode
+  static const Color telegramSentBubbleLight = Color(0xFFEEFFDE);
+  static const Color telegramReceivedBubbleLight = Color(0xFFFFFFFF);
+  static const Color telegramSentTextLight = Color(0xFF000000);
+  static const Color telegramReceivedTextLight = Color(0xFF000000);
+  static const Color telegramSentTimeLight = Color(0xFF6EB259);
+  static const Color telegramReceivedTimeLight = Color(0xFFA0ACB6);
+  static const Color telegramChatBgLight = Color(0xFFB0C4D8);
+  static const Color telegramAccentLight = Color(0xFF4EA4F6);
+  static const Color telegramUnreadBadge = Color(0xFF4DCA57);
+  static const Color telegramLinkColor = Color(0xFF3B8AE0);
+  static const Color telegramCheckReadColor = Color(0xFF4FAE4E);
+
+  // Telegram-style Colors - Dark Mode
+  static const Color telegramSentBubbleDark = Color(0xFF2B5278);
+  static const Color telegramReceivedBubbleDark = Color(0xFF182533);
+  static const Color telegramSentTextDark = Color(0xFFFFFFFF);
+  static const Color telegramReceivedTextDark = Color(0xFFFFFFFF);
+  static const Color telegramSentTimeDark = Color(0xFF7DA8D3);
+  static const Color telegramReceivedTimeDark = Color(0xFF6D7F8F);
+  static const Color telegramChatBgDark = Color(0xFF0E1621);
+  static const Color telegramAccentDark = Color(0xFF4EA4F6);
+
+  // Telegram bubble dimensions
+  static const double telegramBubbleRadius = 18.0;
+  static const double telegramBubbleTailSize = 8.0;
+  static const double telegramBubbleMaxWidthFactor = 0.75;
+  static const double telegramBubbleGroupSpacing = 2.0;
+  static const double telegramBubbleSectionSpacing = 6.0;
 }
