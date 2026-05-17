@@ -402,7 +402,6 @@ class ChatListItem extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }
