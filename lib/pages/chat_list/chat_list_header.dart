@@ -48,7 +48,9 @@ class ChatListHeader extends StatelessWidget implements PreferredSizeWidget {
                 controller.onSearchEnter(text, globalSearch: globalSearch),
             decoration: InputDecoration(
               filled: true,
-              fillColor: theme.colorScheme.secondaryContainer,
+              fillColor: theme.brightness == Brightness.light
+                  ? const Color(0xFFE8EDF2)
+                  : theme.colorScheme.secondaryContainer,
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(99),
@@ -58,7 +60,9 @@ class ChatListHeader extends StatelessWidget implements PreferredSizeWidget {
                   ? L10n.of(context).searchChatsRooms
                   : status.calcLocalizedString(context),
               hintStyle: TextStyle(
-                color: theme.colorScheme.onPrimaryContainer,
+                color: theme.brightness == Brightness.light
+                    ? const Color(0xFF8E9BA7)
+                    : theme.colorScheme.onPrimaryContainer,
                 fontWeight: FontWeight.normal,
               ),
               prefixIcon: hide
@@ -67,13 +71,17 @@ class ChatListHeader extends StatelessWidget implements PreferredSizeWidget {
                             tooltip: L10n.of(context).cancel,
                             icon: const Icon(Icons.close_outlined),
                             onPressed: controller.cancelSearch,
-                            color: theme.colorScheme.onPrimaryContainer,
+                            color: theme.brightness == Brightness.light
+                                ? const Color(0xFF8E9BA7)
+                                : theme.colorScheme.onPrimaryContainer,
                           )
                         : IconButton(
                             onPressed: controller.startSearch,
                             icon: Icon(
                               Icons.search_outlined,
-                              color: theme.colorScheme.onPrimaryContainer,
+                              color: theme.brightness == Brightness.light
+                                ? const Color(0xFF8E9BA7)
+                                : theme.colorScheme.onPrimaryContainer,
                             ),
                           )
                   : Container(

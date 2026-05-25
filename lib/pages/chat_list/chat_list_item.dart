@@ -185,7 +185,7 @@ class ChatListItem extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: room.isUnread
                             ? FontWeight.bold
-                            : FontWeight.w500,
+                            : FontWeight.normal,
                         fontSize: 16,
                       ),
                     ),
@@ -230,7 +230,7 @@ class ChatListItem extends StatelessWidget {
                               ? FontWeight.bold
                               : null,
                           color: hasNotifications
-                              ? theme.colorScheme.primary
+                              ? const Color(0xFF0088CC)
                               : null,
                         ),
                       ),

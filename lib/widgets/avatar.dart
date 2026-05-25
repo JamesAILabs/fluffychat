@@ -61,10 +61,7 @@ class Avatar extends StatelessWidget {
                 : Colors.black,
             shape:
                 shapeBorder ??
-                RoundedSuperellipseBorder(
-                  borderRadius: borderRadius,
-                  side: BorderSide.none,
-                ),
+                const CircleBorder(),
             clipBehavior: Clip.antiAlias,
             child: MxcImage(
               client: client,
