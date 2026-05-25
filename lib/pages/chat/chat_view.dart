@@ -84,6 +84,7 @@ class ChatView extends StatelessWidget {
               appbarBottomHeight += ChatAppBarListTile.fixedHeight;
             }
             return Scaffold(
+              backgroundColor: theme.chatBackgroundColor,
               appBar: AppBar(
                 actionsIconTheme: IconThemeData(
                   color: controller.selectedEvents.isEmpty
@@ -363,7 +364,7 @@ class ChatView extends StatelessWidget {
                                     ? theme.colorScheme.tertiaryContainer
                                     : theme.colorScheme.surface,
                                 borderRadius: BorderRadius.circular(24),
-                                elevation: 2,
+                                elevation: 1,
                                 child: controller.room.isAbandonedDMRoom == true
                                     ? Row(
                                         mainAxisAlignment: .spaceEvenly,

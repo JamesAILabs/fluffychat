@@ -256,7 +256,7 @@ class Message extends StatelessWidget {
                           borderRadius: BorderRadius.circular(
                             AppConfig.borderRadius * 2,
                           ),
-                          color: theme.colorScheme.surface.withAlpha(128),
+                          color: theme.colorScheme.onSurface.withAlpha(180),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 8.0,
@@ -266,8 +266,8 @@ class Message extends StatelessWidget {
                               event.originServerTs.localizedTime(context),
                               style: TextStyle(
                                 fontSize: 12 * AppSettings.fontSizeFactor.value,
-                                fontWeight: FontWeight.bold,
-                                color: theme.colorScheme.secondary,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
                               ),
                             ),
                           ),
