@@ -2,11 +2,11 @@ import 'dart:ui';
 
 abstract class AppConfig {
   // Const and final configuration values (immutable)
-  static const Color primaryColor = Color(0xFF4EA4F6);
-  static const Color primaryColorLight = Color(0xFFB0D4F1);
+  static const Color primaryColor = Color(0xFF0088CC);
+  static const Color primaryColorLight = Color(0xFF6AB2F2);
   static const Color secondaryColor = Color(0xFF4DCA57);
 
-  static const Color chatColor = primaryColor;
+  static const Color chatColor = Color(0xFF0088CC);
   static const double messageFontSize = 16.0;
   static const bool allowOtherHomeservers = true;
   static const bool enableRegistration = true;
@@ -64,7 +64,7 @@ abstract class AppConfig {
   static const Color telegramSentTimeLight = Color(0xFF6EB259);
   static const Color telegramReceivedTimeLight = Color(0xFFA0ACB6);
   static const Color telegramChatBgLight = Color(0xFFB0C4D8);
-  static const Color telegramAccentLight = Color(0xFF4EA4F6);
+  static const Color telegramAccentLight = Color(0xFF0088CC);
   static const Color telegramUnreadBadge = Color(0xFF4DCA57);
   static const Color telegramLinkColor = Color(0xFF3B8AE0);
   static const Color telegramLinkColorDark = Color(0xFF6AB2F2);
@@ -78,7 +78,7 @@ abstract class AppConfig {
   static const Color telegramSentTimeDark = Color(0xFF7DA8D3);
   static const Color telegramReceivedTimeDark = Color(0xFF6D7F8F);
   static const Color telegramChatBgDark = Color(0xFF0E1621);
-  static const Color telegramAccentDark = Color(0xFF4EA4F6);
+  static const Color telegramAccentDark = Color(0xFF0088CC);
 
   // Telegram bubble dimensions
   static const double telegramBubbleRadius = 18.0;

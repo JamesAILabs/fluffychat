@@ -138,7 +138,7 @@ class ChatInputRow extends StatelessWidget {
                     clipBehavior: Clip.hardEdge,
                     child: PopupMenuButton<AddPopupMenuActions>(
                       useRootNavigator: true,
-                      icon: const Icon(Icons.attach_file),
+                      icon: const Icon(Icons.attach_file_rounded),
                       iconColor: theme.colorScheme.onSurfaceVariant,
                       onSelected: controller.onAddPopupMenuButtonSelected,
                       itemBuilder: (BuildContext context) => [
@@ -372,7 +372,7 @@ class ChatInputRow extends StatelessWidget {
                               backgroundColor: theme.telegramAccentColor,
                               foregroundColor: Colors.white,
                             ),
-                            icon: const Icon(Icons.arrow_upward),
+                            icon: const Icon(Icons.send),
                           ),
                   ),
                 ],
